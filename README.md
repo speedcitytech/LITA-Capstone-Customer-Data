@@ -41,22 +41,15 @@ Most Popular Subscription Type
 - A donut chart in Power BI shows the revenue contribution by each region, highlighting high-performing areas.
 - Insight: These findings guide which regions and subscription types are driving the most revenue, indicating where additional resources might be allocated.
 
-Project Files
-•	data/: Contains the dataset used for analysis.
-•	sql/: SQL queries for deeper analysis, such as customer segmentation and revenue by subscription type.
-•	power_bi/: The Power BI file, customer_data_dashboard.pbix, provides a visual dashboard of insights.
-•	analysis/: Contains the report, including key findings and interpretations.
-
-SQL Query:
+##### SQL
+- SQL Query:
 SELECT region, COUNT(customer_id) AS customer_count
 FROM customer_data
 GROUP BY region;
 Insight: Shows the distribution of customers across different regions, helping identify regions with a high customer base.
 Most Popular Subscription Type
 
-SQL Query:
-sql
-Copy code
+- SQL Query:
 SELECT subscription_type, COUNT(customer_id) AS subscription_count
 FROM customer_data
 GROUP BY subscription_type
@@ -64,86 +57,76 @@ ORDER BY subscription_count DESC;
 Insight: Identifies the most popular subscription types, allowing us to focus on high-demand services.
 Customers Who Canceled Within 6 Months
 
-SQL Query:
-sql
-Copy code
+- SQL Query:
 SELECT customer_id, subscription_type
 FROM customer_data
 WHERE DATEDIFF(month, subscription_start_date, cancellation_date) <= 6;
 Insight: Helps identify potential dissatisfaction by tracking early cancellations, informing retention strategies.
 Average Subscription Duration
 
-SQL Query:
-sql
-Copy code
+- SQL Query:
 SELECT AVG(DATEDIFF(month, subscription_start_date, subscription_end_date)) AS avg_duration
 FROM customer_data;
 Insight: Reveals the average length of subscriptions, helping assess customer retention.
 Customers with Subscriptions Over 12 Months
 
-SQL Query:
-sql
-Copy code
+- SQL Query:
 SELECT customer_id, subscription_type
 FROM customer_data
 WHERE DATEDIFF(month, subscription_start_date, CURRENT_DATE) > 12;
 Insight: Identifies loyal customers with long-term subscriptions.
 Total Revenue by Subscription Type
 
-SQL Query:
-sql
-Copy code
+- SQL Query:
 SELECT subscription_type, SUM(revenue) AS total_revenue
 FROM customer_data
 GROUP BY subscription_type;
 Insight: Shows which subscription types are the most profitable.
 Top 3 Regions by Cancellations
 
-SQL Query:
-sql
-Copy code
+- SQL Query:
 SELECT region, COUNT(cancellation_date) AS cancellations
 FROM customer_data
 GROUP BY region
-ORDER BY cancellations DESC
-LIMIT 3;
+ORDER BY cancellations DESC;
 Insight: Indicates regions with the highest cancellation rates for targeted retention campaigns.
 Total Active vs. Canceled Subscriptions
 
-SQL Query:
+- SQL Query:
 SELECT 
   SUM(CASE WHEN cancellation_date IS NULL THEN 1 ELSE 0 END) AS active_subscriptions,
   SUM(CASE WHEN cancellation_date IS NOT NULL THEN 1 ELSE 0 END) AS canceled_subscriptions
 FROM customer_data;
 Insight: Provides an overview of current active vs. canceled subscriptions.
-Power BI Visualizations
+
+##### Power BI Visualizations
 The Power BI dashboard includes interactive visuals to make the insights more accessible.
 
-Total Customers by Region - Map Chart:
-
+- Total Customers by Region - Map Chart:
 Insight: Displays customer distribution across regions, allowing for targeted regional marketing.
-Popular Subscription Types - Bar Chart:
 
+- Popular Subscription Types - Bar Chart:
 Insight: Highlights the most popular subscription types, useful for product development focus.
-Average Subscription Duration - Gauge Chart:
 
+- Average Subscription Duration - Gauge Chart:
 Insight: Illustrates average subscription duration, providing a benchmark for customer retention.
-Revenue by Subscription Type - Column Chart:
 
+- Revenue by Subscription Type - Column Chart:
 Insight: Showcases total revenue from each subscription type, helping prioritize revenue-generating services.
-Top 3 Regions by Cancellations - Donut Chart:
 
+- Top 3 Regions by Cancellations - Donut Chart:
 Insight: Visualizes cancellation hotspots for regional retention analysis.
-Summary
+
+##### Summary
 The analysis reveals that while certain regions have high customer counts, some of these areas also experience higher rates of subscription cancellations. The majority of revenue is derived from a few popular subscription types, indicating an opportunity for upselling other services. Additionally, customers who canceled early in their subscription tenure may indicate areas for service improvement or loyalty incentives.
 
-Recommendations
+##### Recommendations
 Focus on Retention: Implement loyalty programs or targeted offers in high-cancellation regions.
 Expand Popular Subscriptions: Prioritize promotions and product enhancements for high-demand subscription types.
 Engage Long-Term Customers: Offer exclusive benefits to customers with extended subscriptions to maintain loyalty.
 Monitor Early Cancellations: Track customers at risk of canceling within the first 6 months to offer timely interventions.
 
-Conclusion
+##### Conclusion
 The LITA Capstone Customer Data Analysis project successfully uncovers key insights into customer distribution, popular services, and subscription trends. Using these findings, the company can make data-driven decisions to enhance customer satisfaction, increase revenue, and strategically address customer retention challenges.
 
 
